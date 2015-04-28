@@ -38,6 +38,8 @@ namespace Trizbort
                 settings.GuessExits = true;
                 settings.AddObjectCommand = "tb see";
                 settings.AddRegionCommand = "tb region";
+                settings.AddExitCommand = "tb exit";
+                settings.NoExitCommand = "tb noexit";
                 settings.ContinueTranscript = false;
                 return settings;
             }
@@ -50,6 +52,8 @@ namespace Trizbort
         public bool GuessExits;
         public string AddObjectCommand;
         public string AddRegionCommand;
+        public string AddExitCommand;
+        public string NoExitCommand;
         public bool ContinueTranscript;
     }
 }

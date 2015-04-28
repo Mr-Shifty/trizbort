@@ -796,6 +796,48 @@ namespace Trizbort
                 return;
             }
 
+            if (command.ToUpper().StartsWith(m_settings.AddExitCommand.ToUpper()))
+            {
+                // first trim away the command
+                var direction = command.Substring(m_settings.AddExitCommand.Length).Trim();
+                if (direction == String.Empty) 
+                    return;
+
+                // now get the first word in the rest of the prompt
+                direction = direction.Split(s_wordSeparators)[0].ToLowerInvariant();
+
+                // search through the directions list
+                foreach (var pair in s_namesForMovementCommands)
+                {
+                    if (pair.Value.Contains(direction))
+                    {
+                        m_canvas.AddExitStub(m_lastKnownRoom, pair.Key);
+                        return;
+                    }
+                }
+            }
+
+            if (command.ToUpper().StartsWith(m_settings.NoExitCommand.ToUpper()))
+            {
+                // first trim away the command
+                var direction = command.Substring(m_settings.NoExitCommand.Length).Trim();
+                if (direction == String.Empty)
+                    return;
+
+                // now get the first word in the rest of the prompt
+                direction = direction.Split(s_wordSeparators)[0].ToLowerInvariant();
+
+                // search through the directions list
+                foreach (var pair in s_namesForMovementCommands)
+                {
+                    if (pair.Value.Contains(direction))
+                    {
+                        m_canvas.RemoveExitStub(m_lastKnownRoom, pair.Key);
+                        return;
+                    }
+                }
+            }
+
             // TODO: We entirely don't handle "go east. n. s then w." etc. and I don't see an easy way of doing so.
 
             // split the command into individual words
